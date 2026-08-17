@@ -1,0 +1,31 @@
+{
+  "skills": [
+    { "name": "React", "category": "frontend" },
+    { "name": "Next.js", "category": "frontend" },
+    { "name": "TypeScript", "category": "language" },
+    { "name": "JavaScript", "category": "language" },
+    { "name": "Tailwind CSS", "category": "frontend" },
+    { "name": "HTML5", "category": "frontend" },
+    { "name": "CSS3", "category": "frontend" },
+    { "name": "Responsive UI/UX Design", "category": "skill" },
+    { "name": "Node.js", "category": "backend" },
+    { "name": "Python", "category": "language" },
+    { "name": "FastAPI", "category": "backend" },
+    { "name": "PostgreSQL", "category": "database" },
+    { "name": "Supabase", "category": "database" },
+    { "name": "RESTful API Architecture", "category": "backend" },
+    { "name": "Git", "category": "tool" },
+    { "name": "GitHub", "category": "tool" },
+    { "name": "Vercel", "category": "tool" },
+    { "name": "Netlify", "category": "tool" },
+    { "name": "Docker", "category": "tool" },
+    { "name": "Postman", "category": "tool" },
+    { "name": "VS Code", "category": "tool" },
+    { "name": "Cursor", "category": "tool" },
+    { "name": "Figma", "category": "tool" },
+    { "name": "Full-Stack Web Development", "category": "competency" },
+    { "name": "API Integration", "category": "competency" },
+    { "name": "Workflow Automation", "category": "competency" },
+    { "name": "Data Management", "category": "competency" }
+  ]
+}
