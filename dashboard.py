@@ -86,10 +86,15 @@ with tab_saved:
     postings = get_all_postings()
 
     st.sidebar.header("Refresh saved matches")
-    query = st.sidebar.text_input("Job search query", value=DEFAULT_QUERY)
+    query = st.sidebar.text_input(
+        "Job search query", value="", placeholder="e.g. software developer"
+    )
     if st.sidebar.button("Fetch fresh jobs"):
-        run_pipeline(query)
-        postings = get_all_postings()
+        if query.strip():
+            run_pipeline(query)
+            postings = get_all_postings()
+        else:
+            st.sidebar.warning("Enter a search query first.")
 
     if postings:
         render_job_list(pd.DataFrame(postings), key_prefix="saved")
