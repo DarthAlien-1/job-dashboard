@@ -1,7 +1,8 @@
 """
 main.py
-Runs the full pipeline: fetch jobs from all sources -> score against skills -> save to database.
-Run this whenever you want to pull fresh postings.
+Runs the full pipeline: fetch jobs from all sources -> score against default skills -> save to database.
+Run this locally whenever you want to pull fresh postings in bulk.
+(The deployed dashboard also runs a lighter version of this automatically.)
 """
 
 import fetch_adzuna
@@ -9,11 +10,24 @@ import fetch_remoteok
 from match import load_skills, score_all_jobs
 from db import init_db, save_postings
 
+# Optional extra sources — only used if these modules exist in your repo.
+try:
+    import fetch_jobicy
+except ImportError:
+    fetch_jobicy = None
+
+try:
+    import fetch_arbeitnow
+except ImportError:
+    fetch_arbeitnow = None
+
+DEFAULT_QUERY = "software developer"
+
 if __name__ == "__main__":
     init_db()
 
-    print("Fetching from Adzuna (multiple countries)...")
-    adzuna_jobs = fetch_adzuna.fetch_jobs()
+    print(f"Fetching from Adzuna (multiple countries) for '{DEFAULT_QUERY}'...")
+    adzuna_jobs = fetch_adzuna.fetch_jobs(DEFAULT_QUERY)
     print(f"  -> {len(adzuna_jobs)} entry-level postings")
 
     print("Fetching from RemoteOK...")
@@ -22,7 +36,19 @@ if __name__ == "__main__":
 
     all_jobs = adzuna_jobs + remoteok_jobs
 
-    print("Loading your skills...")
+    if fetch_jobicy:
+        print("Fetching from Jobicy...")
+        jobicy_jobs = fetch_jobicy.fetch_jobs()
+        print(f"  -> {len(jobicy_jobs)} entry-level postings")
+        all_jobs += jobicy_jobs
+
+    if fetch_arbeitnow:
+        print("Fetching from Arbeitnow...")
+        arbeitnow_jobs = fetch_arbeitnow.fetch_jobs()
+        print(f"  -> {len(arbeitnow_jobs)} entry-level postings")
+        all_jobs += arbeitnow_jobs
+
+    print("Loading default skills...")
     skills = load_skills()
 
     print("Scoring jobs...")

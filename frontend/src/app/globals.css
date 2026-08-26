@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-board-bg: #12151b;
+  --color-board-panel: #1a1f28;
+  --color-board-line: #262c38;
+  --color-board-amber: #f2a72e;
+  --color-board-text: #e8e3d3;
+  --color-board-teal: #4fd8ae;
+  --color-board-slate: #6b7280;
+  --color-board-red: #e2665a;
+  --font-mono-board: var(--font-plex-mono), ui-monospace, monospace;
+  --font-sans-board: var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+body {
+  background-color: var(--color-board-bg);
+  color: var(--color-board-text);
+}
+
+@keyframes flip-in {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-flip-in {
+  animation: flip-in 0.45s ease-out both;
+  transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-flip-in {
+    animation: none;
+  }
+}
+
+/* subtle scan-line texture on the board panel, kept very quiet */
+.board-texture {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
