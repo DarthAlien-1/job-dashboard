@@ -85,11 +85,6 @@ with tab_saved:
 
     postings = get_all_postings()
 
-    if not postings:
-        st.info("No postings yet — fetching an initial batch, this takes a few seconds...")
-        run_pipeline(DEFAULT_QUERY)
-        postings = get_all_postings()
-
     st.sidebar.header("Refresh saved matches")
     query = st.sidebar.text_input("Job search query", value=DEFAULT_QUERY)
     if st.sidebar.button("Fetch fresh jobs"):
@@ -99,7 +94,10 @@ with tab_saved:
     if postings:
         render_job_list(pd.DataFrame(postings), key_prefix="saved")
     else:
-        st.warning("No postings found yet. Try fetching fresh jobs from the sidebar.")
+        st.info(
+            "👋 Enter a job search query in the sidebar and click **Fetch fresh jobs** "
+            "to see postings here."
+        )
 
 # ===================== TAB 2: Upload a CV, get live personalized matches =====================
 with tab_cv:
